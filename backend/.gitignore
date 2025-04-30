@@ -1,8 +1,24 @@
+# IDE settings
+.vs/
+.vscode/
+*.user
+*.userprefs
+*.suo
+
+# Build results
 bin/
 obj/
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+
+# Temporary files
+*.log
+*.tmp
 *.db
-*.user
-*.vs
-*.suo
-*.userprefs
-.vscode/
+*.DS_Store
