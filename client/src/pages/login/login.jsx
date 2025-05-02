@@ -1,18 +1,68 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../../api/auth";
+import { useAuth } from "../../stores/use-auth";
 
 import "./login.css";
 
 export default function LoginPage() {
+  const [form, setForm] = useState({ username: "", password: "" });
+  const navigate = useNavigate();
+  const setToken = useAuth((state) => state.setToken);
+
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (token) => {
+      setToken(token);
+      navigate("/tasks");
+    },
+    onError: (error) => {
+      console.log("Login error", error);
+      alert("Invalid data or user does not exist.");
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    mutation.mutate({
+      username: form.username,
+      email: form.email,
+      password: form.password,
+    });
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.card}>
         <h2>Login</h2>
-        <form style={styles.form}>
-          <input type="email" placeholder="Email" style={styles.input} />
-          <input type="password" placeholder="Password" style={styles.input} />
+        <form style={styles.form} onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Username"
+            style={styles.input}
+            value={form.username}
+            onChange={(e) => setForm({ ...form, username: e.target.value })}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            style={styles.input}
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            style={styles.input}
+            value={form.password}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            required
+          />
           <button type="submit" style={styles.button}>
-            Sign in
+            {mutation.isPending ? "Signing in..." : "Sign in"}
           </button>
         </form>
         <p style={styles.text}>

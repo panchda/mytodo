@@ -4,6 +4,7 @@ import TaskListItem from "./components/task-list-item/task-list-item";
 import TaskListFilters from "./components/task-list-filters/task-list-filters";
 import ActionButton from "../../shared/components/action-button/action-button";
 import TaskListNewItem from "./components/task-list-new-item/task-list-new-item";
+import { useAuth } from "../../stores/use-auth";
 
 const taskItems = [
   { id: 1, title: "Call and wish Mark a happy birthday!", isCompleted: false },
@@ -25,6 +26,7 @@ export default function TaskListPage() {
   );
 
   const navigate = useNavigate();
+  const logout = useAuth((state) => state.logout);
 
   const toggleSelected = (id) => {
     setIsSelectedTaskId(selectedTaskId === id ? null : id);
@@ -35,7 +37,7 @@ export default function TaskListPage() {
   };
 
   const handleLogout = () => {
-    // TODO: logout
+    logout();
     navigate("/");
   };
 
