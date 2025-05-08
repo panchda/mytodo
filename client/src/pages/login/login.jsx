@@ -1,21 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/auth";
 import { useAuth } from "../../stores/use-auth";
+import ActionButton from "../../shared/components/action-button/action-button";
 
 import "./login.css";
 
 export default function LoginPage() {
-  const [form, setForm] = useState({ username: "", password: "" });
+  const [form, setForm] = useState({ username: "", email: "", password: "" });
   const navigate = useNavigate();
   const setToken = useAuth((state) => state.setToken);
+  const token =
+    useAuth((state) => state.token) || localStorage.getItem("token");
+
+  useEffect(() => {
+    if (token) {
+      navigate("/tasks", { replace: true });
+    }
+  }, [token, navigate]);
 
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (token) => {
       setToken(token);
-      navigate("/tasks");
     },
     onError: (error) => {
       console.log("Login error", error);
@@ -33,85 +41,43 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2>Login</h2>
-        <form style={styles.form} onSubmit={handleSubmit}>
+    <div className="login">
+      <div className="login-container">
+        <h2 className="login-title">Login</h2>
+        <form className="login-form" onSubmit={handleSubmit}>
           <input
             type="text"
+            className="login-input"
             placeholder="Username"
-            style={styles.input}
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
             required
           />
           <input
             type="email"
+            className="login-input"
             placeholder="Email"
-            style={styles.input}
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
           <input
             type="password"
+            className="login-input"
             placeholder="Password"
-            style={styles.input}
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
           />
-          <button type="submit" style={styles.button}>
-            {mutation.isPending ? "Signing in..." : "Sign in"}
-          </button>
+          <ActionButton
+            disabled={mutation.isPending}
+            label={`${mutation.isPending ? "Signing in..." : "Sign in"}`}
+          />
         </form>
-        <p style={styles.text}>
+        <p className="login-text">
           Don’t have an account? <Link to="/register">Sign up</Link>
         </p>
       </div>
     </div>
   );
 }
-
-const styles = {
-  container: {
-    height: "100vh",
-    backgroundColor: "#f6f5fc",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  card: {
-    backgroundColor: "white",
-    padding: "40px",
-    borderRadius: "20px",
-    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
-    width: "300px",
-    textAlign: "center",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-    marginTop: "20px",
-  },
-  input: {
-    padding: "10px",
-    border: "1px solid #ccc",
-    borderRadius: "8px",
-    fontSize: "16px",
-  },
-  button: {
-    backgroundColor: "#e49288",
-    color: "white",
-    border: "none",
-    padding: "12px",
-    borderRadius: "10px",
-    fontSize: "16px",
-    cursor: "pointer",
-  },
-  text: {
-    marginTop: "15px",
-    fontSize: "14px",
-  },
-};

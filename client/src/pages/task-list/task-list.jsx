@@ -6,6 +6,8 @@ import ActionButton from "../../shared/components/action-button/action-button";
 import TaskListNewItem from "./components/task-list-new-item/task-list-new-item";
 import { useAuth } from "../../stores/use-auth";
 
+import "./task-list.css";
+
 const taskItems = [
   { id: 1, title: "Call and wish Mark a happy birthday!", isCompleted: false },
   { id: 2, title: "Shopping", isCompleted: true },
@@ -53,33 +55,35 @@ export default function TaskListPage() {
   });
 
   return (
-    <div>
+    <div className="task-list">
       <button onClick={handleLogout}>Log Out</button>
-      <h1>MyTODO</h1>
-      <ActionButton label="Add Task" onClick={handleAddNewTask} />
+      <div className="task-list__wrapper">
+        <h1>MyTODO</h1>
+        <ActionButton label="Add Task" onClick={handleAddNewTask} />
 
-      {isNewTaskVisible && (
-        <TaskListNewItem onAdd={() => {}} onCancel={() => {}} />
-      )}
+        {isNewTaskVisible && (
+          <TaskListNewItem onAdd={() => {}} onCancel={() => {}} />
+        )}
 
-      <TaskListFilters
-        filters={filters}
-        selectedFilter={selectedFilter}
-        setSelectedFilter={setSelectedFilter}
-      />
+        <TaskListFilters
+          filters={filters}
+          selectedFilter={selectedFilter}
+          setSelectedFilter={setSelectedFilter}
+        />
 
-      <ul>
-        {filteredTasks.map((taskItem) => (
-          <li key={taskItem.id}>
-            <TaskListItem
-              taskItem={taskItem}
-              isSelected={selectedTaskId === taskItem.id}
-              onTitleClick={() => toggleSelected(taskItem.id)}
-              onDeleteItem={() => handleDeleteItem(taskItem.id)}
-            />
-          </li>
-        ))}
-      </ul>
+        <ul className="task-list-items">
+          {filteredTasks.map((taskItem) => (
+            <li key={taskItem.id}>
+              <TaskListItem
+                taskItem={taskItem}
+                isSelected={selectedTaskId === taskItem.id}
+                onTitleClick={() => toggleSelected(taskItem.id)}
+                onDeleteItem={() => handleDeleteItem(taskItem.id)}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }

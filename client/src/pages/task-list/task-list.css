@@ -1,0 +1,12 @@
+.task-list__wrapper {
+  padding: 45px;
+}
+
+.task-list-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}

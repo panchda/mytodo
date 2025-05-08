@@ -1,12 +1,17 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser, loginUser } from "../../api/auth";
 import { useAuth } from "../../stores/use-auth";
+import ActionButton from "../../shared/components/action-button/action-button";
+
+import "./register.css";
 
 export default function RegisterPage() {
   const navigate = useNavigate();
   const setToken = useAuth((state) => state.setToken);
+  const token =
+    useAuth((state) => state.token) || localStorage.getItem("token");
 
   const [form, setForm] = useState({
     username: "",
@@ -15,16 +20,22 @@ export default function RegisterPage() {
     confirm: "",
   });
 
+  useEffect(() => {
+    if (token) {
+      navigate("/tasks", { replace: true });
+    }
+  }, [token, navigate]);
+
   const mutation = useMutation({
     mutationFn: registerUser,
     onSuccess: async (_, variables) => {
       try {
         const token = await loginUser({
           username: variables.username,
+          email: variables.email,
           password: variables.password,
         });
         setToken(token);
-        navigate("/tasks");
       } catch (err) {
         alert("Registration was succesful, but login is failed");
         navigate("/");
@@ -48,56 +59,49 @@ export default function RegisterPage() {
   };
 
   return (
-    <div style={styles.container}>
-      <div style={styles.card}>
-        <h2>Sign Up</h2>
-        <form style={styles.form} onSubmit={handleSubmit}>
+    <div className="register">
+      <div className="register-container">
+        <h2 className="register-title">Sign Up</h2>
+        <form className="register-form" onSubmit={handleSubmit}>
           <input
             type="text"
+            className="register-input"
             placeholder="Username"
-            style={styles.input}
             value={form.username}
             onChange={(e) => setForm({ ...form, username: e.target.value })}
             required
           />
           <input
             type="email"
+            className="register-input"
             placeholder="Email"
-            style={styles.input}
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             required
           />
           <input
             type="password"
+            className="register-input"
             placeholder="Password"
-            style={styles.input}
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             required
           />
           <input
             type="password"
+            className="register-input"
             placeholder="Confirm password"
-            style={styles.input}
             value={form.confirm}
             onChange={(e) => setForm({ ...form, confirm: e.target.value })}
             required
           />
 
-          <button
-            type="submit"
-            style={styles.button}
+          <ActionButton
             disabled={mutation.isPending}
-          >
-            {mutation.isPending ? "Signing up..." : "Sign Up"}
-          </button>
+            label={`${mutation.isPending ? "Signing up..." : "Sign Up"}`}
+          />
         </form>
-        <p style={styles.text}>
-          Already have an account? <Link to="/">Sign in</Link>
-        </p>
       </div>
     </div>
   );
 }
-
