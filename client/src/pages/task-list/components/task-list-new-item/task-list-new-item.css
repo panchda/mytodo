@@ -1,0 +1,55 @@
+.task-list-new-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 300px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-list-new-item input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+    width: 100%;
+  }
+  
+  .task-list-new-item input[type="text"]:focus {
+    border-color: #e49288;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .task-list-new-item .action-button {
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .task-list-new-item .action-button--add {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .task-list-new-item .action-button--add:hover {
+    background-color: #45a049;
+  }
+  
+  .task-list-new-item .action-button--cancel {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .task-list-new-item .action-button--cancel:hover {
+    background-color: #e53935;
+  }
+  
