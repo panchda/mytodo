@@ -7,15 +7,23 @@ export default function TaskListNewItem({ onAdd, onCancel }) {
   const [title, setTitle] = useState("");
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Write a task.."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+    <div className="task-list-new-item">
+    <input
+      type="text"
+      placeholder="Write a task.."
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+    />
+   <ActionButton
+      className="action-button--add"
+      label="Add"
+      onClick={onAdd}
+    />
+    <ActionButton
+      className="action-button--cancel"
+      label="Cancel"
+      onClick={onCancel} 
       />
-      <ActionButton label="add" onClick={onAdd} />
-      <ActionButton label="cancel" onClick={onCancel} />
     </div>
   );
 }
