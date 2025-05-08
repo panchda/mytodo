@@ -30,9 +30,11 @@ export default function TaskListItem({
     >
       <input
         type="checkbox"
+        className="task-checkbox"
         checked={taskItem.isCompleted}
         onChange={handleCheckUpdate}
       />
+
       {isEditing ? (
         <input
           type="text"
@@ -42,10 +44,13 @@ export default function TaskListItem({
           onBlur={handleTitleUpdate}
         />
       ) : (
-        <button onClick={onTitleClick}>{taskItem.title}</button>
+        <button className="task-title" onClick={onTitleClick}>
+          {taskItem.title}
+        </button>
       )}
+
       {isSelected && (
-        <>
+        <div className="task-actions">
           <button
             onClick={() => {
               isEditing ? handleTitleUpdate() : setIsEditing(true);
@@ -53,8 +58,8 @@ export default function TaskListItem({
           >
             {isEditing ? "save" : "edit"}
           </button>
-          <button onClick={onDeleteItem}>delete</button>
-        </>
+          <button onClick={onDeleteItem}>🗑️</button>
+        </div>
       )}
     </div>
   );

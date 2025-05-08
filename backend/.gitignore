@@ -20,5 +20,9 @@ bld/
 # Temporary files
 *.log
 *.tmp
-*.db
 *.DS_Store
+
+# Database
+**/*.db
+**/*.db-shm
+**/*.db-wal

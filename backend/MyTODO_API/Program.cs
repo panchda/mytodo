@@ -49,7 +49,17 @@ namespace MyTODO_API
 
 
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlite("Data Source=app.db"));
+                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:3000")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
             
             // JWT Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -95,6 +105,7 @@ namespace MyTODO_API
             }
 
             app.UseAuthentication(); // <-- UWAGA! przed UseAuthorization
+            app.UseCors("AllowFrontend");
             app.UseAuthorization();
             app.MapControllers();
             app.Run();

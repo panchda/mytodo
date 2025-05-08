@@ -1,5 +1,9 @@
 import "./action-button.css";
 
-export default function ActionButton({ label, onClick }) {
-  return <button onClick={onClick}>{label}</button>;
+export default function ActionButton({ label, onClick, disabled = false }) {
+  return (
+    <button className="action-button" onClick={onClick} disabled={disabled}>
+      {label}
+    </button>
+  );
 }
