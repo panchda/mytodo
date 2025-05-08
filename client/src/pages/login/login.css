@@ -1,67 +1,68 @@
-.container {
-    height: 100vh;
-    background-color: #f6f5fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .card {
-    background-color: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    text-align: center;
-  }
-  
-  h2 {
+.login {
+  height: 100vh;
+  background-color: #f0ecf7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: #faf8f8;
+  padding: 53px;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 526px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.login-title {
+  font-size: 64px;
+  color: #333;
+  margin-bottom: 52px;
+  font-weight: 600;
+  margin-top: 0;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.login-input {
+  padding: 25px;
+  border: 1px solid #bcbacf;
+  border-radius: 20px;
+  font-size: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  font-weight: 200;
+  color: #000000;
+  font-family: "Inter";
+
+  &::placeholder {
+    color: #000000;
+    font-family: "Inter";
     font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+    font-weight: 200;
+    opacity: 1;
   }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    width: 100%;
-  }
-  
-  .button {
-    background-color: #e49288;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100%;
-  }
-  
-  .button:hover {
-    background-color: #d08273;
-  }
-  
-  .text {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .text a {
-    color: #e49288;
-    text-decoration: none;
-  }
-  
-  .text a:hover {
-    text-decoration: underline;
-  }
+}
+
+.login-text {
+  margin-top: 53px;
+  font-size: 20px;
+}
+
+.login-text a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #000000;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+ 

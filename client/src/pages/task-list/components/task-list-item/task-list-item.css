@@ -1,53 +1,78 @@
 .task-list-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .task-list-item--completed {
-    text-decoration: line-through;
-    color: #aaa;
-  }
-  
-  .task-list-item--selected {
-    background-color: #f0f0f0;
-  }
-  
-  .task-list-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-  }
-  
-  button {
-    background-color: #e49288;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #d07f74;
-  }
-  
-  input[type="text"] {
-    padding: 8px;
-    font-size: 16px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    outline: none;
-  }
-  
-  input[type="text"]:focus {
-    border-color: #e49288;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 16px;
+  background-color: white;
+  font-size: 16px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: "Inter";
+  font-size: 28px;
+}
+
+.task-list-item--completed {
+  background-color: #cee9ad;
+  font-weight: 600;
+  color: black;
+}
+
+.task-list-item--selected {
+  border: 2px solid #000000;
+}
+
+.task-checkbox {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  border: 1px solid #9d9d9d;
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #ffffff;
+}
+
+.task-checkbox:checked::after {
+  content: "✔";
+  font-size: 28px;
+  color: black;
+  font-family: "Segoe UI Symbol", "Apple Color Emoji", "Arial", sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0;
+  color: #000000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.task-title {
+  flex: 1;
+  text-align: left;
+  background: none;
+  font-family: "Inter";
+  font-size: 28px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-actions button {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px;
+}
+ 
