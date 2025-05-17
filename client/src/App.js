@@ -6,6 +6,7 @@ import ProtectedRoute from "./shared/components/protected-route/protected-route"
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/200.css";
+import "@fontsource/inter/600-italic.css";
 import "@fontsource/inter";
 
 function App() {

@@ -1,18 +1,16 @@
 import { useReducer, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../stores/use-auth";
+import { useTasks } from "../../queries/use-tasks";
+import { useDeleteTask } from "../../queries/use-delete-task";
 import TaskListItem from "./components/task-list-item/task-list-item";
 import TaskListFilters from "./components/task-list-filters/task-list-filters";
 import ActionButton from "../../shared/components/action-button/action-button";
 import TaskListNewItem from "./components/task-list-new-item/task-list-new-item";
-import { useAuth } from "../../stores/use-auth";
+import FeedbackState from "../../shared/components/feedback-state/feedback-state";
 
 import "./task-list.css";
 
-const taskItems = [
-  { id: 1, title: "Call and wish Mark a happy birthday!", isCompleted: false },
-  { id: 2, title: "Shopping", isCompleted: true },
-  { id: 3, title: "Read a book", isCompleted: false },
-];
 const filters = [
   { label: "All Tasks" },
   { label: "Completed" },
@@ -26,16 +24,21 @@ export default function TaskListPage() {
     (state) => !state,
     false
   );
+  const { mutate: deleteTask } = useDeleteTask();
 
   const navigate = useNavigate();
   const logout = useAuth((state) => state.logout);
+  const { data: tasks, isLoading, isError } = useTasks();
+
+  if (isLoading) return <FeedbackState title="Loading..." />;
+  if (isError) return <FeedbackState title="Something went wrong..." />;
 
   const toggleSelected = (id) => {
     setIsSelectedTaskId(selectedTaskId === id ? null : id);
   };
 
   const handleDeleteItem = (id) => {
-    // TODO: send delete event to BE
+    deleteTask(id);
   };
 
   const handleLogout = () => {
@@ -43,11 +46,7 @@ export default function TaskListPage() {
     navigate("/");
   };
 
-  const handleAddNewTask = () => {
-    setIsNewTaskVisible();
-  };
-
-  const filteredTasks = taskItems.filter((taskItem) => {
+  const filteredTasks = tasks.filter((taskItem) => {
     if (selectedFilter === "All Tasks") return true;
     if (selectedFilter === "Completed") return taskItem.isCompleted;
     if (selectedFilter === "To Do") return !taskItem.isCompleted;
@@ -56,33 +55,40 @@ export default function TaskListPage() {
 
   return (
     <div className="task-list">
-      <button onClick={handleLogout}>Log Out</button>
+      <button className="task-list__logout-action" onClick={handleLogout}>
+        Log Out
+      </button>
       <div className="task-list__wrapper">
-        <h1>MyTODO</h1>
-        <ActionButton label="Add Task" onClick={handleAddNewTask} />
-
-        {isNewTaskVisible && (
-          <TaskListNewItem onAdd={() => {}} onCancel={() => {}} />
-        )}
-
+        <div className="task-list__inner-wrapper">
+          <h1 className="task-list__logo">MyTODO</h1>
+          <ActionButton
+            disabled={isNewTaskVisible}
+            label="Add Task"
+            onClick={setIsNewTaskVisible}
+          />
+        </div>
+        {isNewTaskVisible && <TaskListNewItem onClose={setIsNewTaskVisible} />}
         <TaskListFilters
           filters={filters}
           selectedFilter={selectedFilter}
           setSelectedFilter={setSelectedFilter}
         />
-
-        <ul className="task-list-items">
-          {filteredTasks.map((taskItem) => (
-            <li key={taskItem.id}>
-              <TaskListItem
-                taskItem={taskItem}
-                isSelected={selectedTaskId === taskItem.id}
-                onTitleClick={() => toggleSelected(taskItem.id)}
-                onDeleteItem={() => handleDeleteItem(taskItem.id)}
-              />
-            </li>
-          ))}
-        </ul>
+        {filteredTasks.length ? (
+          <ul className="task-list-items">
+            {filteredTasks.map((taskItem) => (
+              <li key={taskItem.id}>
+                <TaskListItem
+                  taskItem={taskItem}
+                  isSelected={selectedTaskId === taskItem.id}
+                  handleSelect={() => toggleSelected(taskItem.id)}
+                  onDeleteItem={() => handleDeleteItem(taskItem.id)}
+                />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <FeedbackState title="No tasks found." />
+        )}
       </div>
     </div>
   );

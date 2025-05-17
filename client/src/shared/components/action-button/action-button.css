@@ -1,13 +1,14 @@
 .action-button {
+  display: flex;
+  align-self: center;
+  justify-content: center;
   padding: 25px 20px;
   border-radius: 20px;
   font-size: 28px;
   cursor: pointer;
   border: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  display: inline-block;
   background-color: #ec8d85;
-  text-align: center;
   width: 100%;
   color: #ffffff;
   font-family: "Inter";
@@ -18,4 +19,29 @@
   transform: scale(1.02);
   background-color: #d0675e;
 }
- 
+
+.action-button--disabled {
+  opacity: 0.35;
+
+  &:hover {
+    transform: none;
+    background-color: #ec8d85;
+    cursor: unset;
+  }
+}
+
+@media (max-width: 768px) {
+  .action-button {
+    font-size: 22px;
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .action-button {
+    font-size: 18px;
+    padding: 16px 12px;
+    border-radius: 12px;
+  }
+}
