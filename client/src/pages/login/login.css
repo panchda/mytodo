@@ -1,5 +1,4 @@
 .login {
-  height: 100vh;
   background-color: #f0ecf7;
   display: flex;
   justify-content: center;
@@ -13,6 +12,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 526px;
+  margin: 30px;
   box-sizing: border-box;
   text-align: center;
 }
@@ -65,4 +65,59 @@
 .login-text a:hover {
   text-decoration: underline;
 }
- 
+
+@media (max-width: 768px) {
+  .login-container {
+    padding: 32px;
+    margin: 16px;
+  }
+
+  .login-title {
+    font-size: 48px;
+    margin-bottom: 36px;
+  }
+
+  .login-input {
+    padding: 18px;
+    font-size: 20px;
+  }
+
+  .login-input::placeholder {
+    font-size: 20px;
+  }
+
+  .login-text {
+    font-size: 16px;
+    margin-top: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 24px;
+    margin: 12px;
+  }
+
+  .login-title {
+    font-size: 36px;
+    margin-bottom: 28px;
+  }
+
+  .login-form {
+    gap: 20px;
+  }
+
+  .login-input {
+    padding: 16px;
+    font-size: 18px;
+  }
+
+  .login-input::placeholder {
+    font-size: 18px;
+  }
+
+  .login-text {
+    font-size: 14px;
+    margin-top: 28px;
+  }
+}

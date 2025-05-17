@@ -12,7 +12,7 @@ export default function TaskListFilters({
   };
 
   return (
-    <ul>
+    <ul className="task-list-filters">
       {filters.map((filter) => (
         <li key={filter.label}>
           <TaskListFiltersItem

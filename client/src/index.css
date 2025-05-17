@@ -7,6 +7,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html,
+body,
+#root {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 body,
 p {
   margin: 0;
@@ -20,4 +27,15 @@ ul {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#root {
+  &:has(.register),
+  &:has(.login) {
+    background-color: #f0ecf7;
+  }
+
+  &:has(.task-list) {
+    background-color: #f2f7fc;
+  }
 }
