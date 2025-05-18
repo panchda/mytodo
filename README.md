@@ -6,6 +6,9 @@ A full-stack ToDo list application built with:
 - **Backend**: ASP.NET Core Web API
 - **Database**: SQLite with Entity Framework Core
 - **Auth**: JWT (JSON Web Tokens)
+- **Testing**: Unit tests for both frontend and backend
+  - Frontend: Jest + React Testing Library
+  - Backend: xUnit (.NET)
 
 ---
 
@@ -59,6 +62,41 @@ npm install
 
 Frontend will run on:
 http://localhost:3000
+
+## Running Tests
+
+### Backend (ASP.NET Core)
+
+To run unit tests for the backend:
+
+```bash
+cd backend
+dotnet test
+```
+
+This will build the test project and run all tests in the console.
+Make sure .NET SDK is installed (dotnet --version to verify).
+
+Dependencies are restored automatically with `dotnet restore`
+
+### Frontend (React)
+
+To run unit tests for the frontend:
+
+```bash
+cd client
+npm test
+```
+
+This will launch the Jest test runner.
+
+To run tests just once without watch mode:
+
+```bash
+npm test -- --watchAll=false
+```
+
+Make sure all frontend dependencies are installed (`npm install`) before running tests.
 
 ## Authentication
 
